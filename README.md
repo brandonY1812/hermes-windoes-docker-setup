@@ -94,7 +94,7 @@ None of the base images ship ready for this use case out of the box. Every custo
 | Change | Reason |
 |--------|--------|
 | All config files embedded as base64 | The `.bat` is the **only** file you need. No separate docker-compose.yml, Dockerfile, or .env to distribute. Powershell decodes and writes them at runtime. |
-| Auto-generates `config.yaml` | Prevents the first-time setup wizard from crashing inside Docker. The wizard expects interactive TTY input, which doesn't work well in detached containers. |
+| Auto-generates `config.yaml` | Prevents the first-time setup wizard from crashing inside Docker. Sets approvals mode to `smart` so commands are auto-approved based on heuristics instead of prompting. Configures camofox as the browser cloud provider with managed persistence, visible-tab session handling, and appropriate timeouts — all tuned so the headless browser works out of the box. |
 | Auto-generates `.env` with `CAMOFOX_URL` and `SEARXNG_URL` | Sets the internal Docker network URLs so Hermes can reach the other services by container name. |
 | Post-start SearXNG settings patch | The default SearXNG `settings.yml` only outputs HTML. Hermes needs the `json` format to parse search results. The script pulls the config, appends the format, pushes it back, and restarts. |
 
@@ -215,7 +215,7 @@ None of the base images ship ready for this use case out of the box. Every custo
 | 變更 | 原因 |
 |--------|--------|
 | 所有設定檔以 base64 內嵌 | `.bat` 是唯一需要的檔案。不需要另外散佈 docker-compose.yml、Dockerfile 或 .env。Powershell 會在執行時解碼並寫入。 |
-| 自動產生 `config.yaml` | 防止首次啟動設定精靈在 Docker 中崩潰。設定精靈需要互動式 TTY 輸入，在分離模式（detached）容器中無法正常運作。 |
+| 自動產生 `config.yaml` | 防止首次啟動設定精靈在 Docker 中崩潰。將 approvals 模式設為 `smart`，讓指令根據啟發式規則自動核准，免去手動確認。同時將 camofox 設為瀏覽器雲端供應商，配置 managed persistence、visible-tab 工作階段處理及適當的逾時設定 — 讓無頭瀏覽器開箱即用。 |
 | 自動產生 `.env`，包含 `CAMOFOX_URL` 和 `SEARXNG_URL` | 設定 Docker 內部網路 URL，讓 Hermes 能透過容器名稱找到其他服務。 |
 | 啟動後修補 SearXNG 設定 | 預設的 SearXNG `settings.yml` 只輸出 HTML。Hermes 需要 `json` 格式才能解析搜尋結果。腳本會拉出設定檔、附加格式設定、推回容器，然後重啟。 |
 
